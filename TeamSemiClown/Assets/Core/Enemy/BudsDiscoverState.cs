@@ -17,10 +17,5 @@ public class BudsDiscoverState : BudsBaseState
     {
         
     }
-
-    public override void OnTriggerEnter(Collider colliderInfo, BudsStateMachine buds)
-    { 
-    
-    }
 }
 
