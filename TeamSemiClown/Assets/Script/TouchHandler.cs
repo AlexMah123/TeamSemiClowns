@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class TouchHandler : MonoBehaviour
 {
+    //Speed Contorl
     public float moveSpeed = 0.2f;
 
+    //Player Controlls
     private PlayerControls controls;
     private bool isTouching = false;
 
