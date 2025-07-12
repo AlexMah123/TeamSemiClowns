@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1031006168953805969}
   - component: {fileID: 4202699968751433007}
   - component: {fileID: 3943501407845068081}
-  - component: {fileID: 2652120442312814790}
+  - component: {fileID: 4023466635204827160}
   m_Layer: 5
   m_Name: SettingsCanvas
   m_TagString: Untagged
@@ -134,19 +134,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundFXObject: {fileID: 408178840096346036, guid: cfd62f75f3670cc4791c92df15bea946, type: 3}
---- !u!82 &2652120442312814790
+  BGM_Source: {fileID: 4023466635204827160}
+  GameBGM: {fileID: 8300000, guid: dc6c6104a141ac446a466b22ad9bfe47, type: 3}
+--- !u!82 &4023466635204827160
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910805860194242709}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -3191313563530330373, guid: 7fd0b78c226bf2c42a26f96d7371a31a, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

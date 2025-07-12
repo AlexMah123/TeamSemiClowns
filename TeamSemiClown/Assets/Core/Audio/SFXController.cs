@@ -6,9 +6,38 @@ public class SFXController : MonoBehaviour
 {
     public static SFXController Instance;
 
+    [Header("SFX Controller Settings")]
     [SerializeField] private AudioSource soundFXObject;
+    [SerializeField] private AudioSource BGM_Source;
+
+
+    [Header("SFX Setup")]
+    [SerializeField] private AudioClip GameBGM;
 
     private void Awake()
+    {
+        if (GameBGM == null)
+        {
+            Debug.LogError("GameBGM is not assigned in SFXController.");
+            return;
+        }
+        
+        if(soundFXObject == null)
+        {
+            Debug.LogError("SoundFXObject is not assigned in SFXController.");
+            return;
+        }
+
+        if (BGM_Source == null)
+        {
+            Debug.LogError("BGM AudioSource is not assigned in SFXController.");
+            return;
+        }
+
+        SetupSingleton();
+    }
+
+    void SetupSingleton()
     {
         if (Instance == null)
         {
@@ -34,6 +63,23 @@ public class SFXController : MonoBehaviour
 
         float clipLength = audioSource.clip.length;
         Destroy(audioSource.gameObject, clipLength);
+    }
+
+    public void PlayBGM()
+    {
+        StopBGM();
+
+        BGM_Source.clip = GameBGM;
+        BGM_Source.loop = true;
+        BGM_Source.Play();
+    }
+
+    public void StopBGM()
+    {
+        if (BGM_Source.isPlaying)
+        {
+            BGM_Source.Stop();
+        }
     }
 
 }

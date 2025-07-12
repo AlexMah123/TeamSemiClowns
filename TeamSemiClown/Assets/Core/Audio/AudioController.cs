@@ -22,19 +22,19 @@ public class AudioController : MonoBehaviour
 
     public void SetMasterVolume(float level)
     {
-        audioMixer.SetFloat("Master", Mathf.Log10(level) * 20f);
+        audioMixer.SetFloat("Master", LinearToDecibel(level));
         PlayerPrefs.SetFloat(MasterVolumeKey, level);
     }
 
     public void SetMusicVolume(float level)
     {
-        audioMixer.SetFloat("Music", Mathf.Log10(level) * 20f);
+        audioMixer.SetFloat("Music", LinearToDecibel(level));
         PlayerPrefs.SetFloat(MusicVolumeKey, level);
     }
 
     public void SetSFXVolume(float level)
     {
-        audioMixer.SetFloat("SFX", Mathf.Log10(level) * 20f);
+        audioMixer.SetFloat("SFX", LinearToDecibel(level));
         PlayerPrefs.SetFloat(SFXVolumeKey, level);
     }
 
@@ -52,5 +52,10 @@ public class AudioController : MonoBehaviour
         SetMasterVolume(masterVolume);
         SetMusicVolume(musicVolume);
         SetSFXVolume(sfxVolume);
+    }
+
+    private float LinearToDecibel(float linear)
+    {
+        return linear > 0.0001f ? Mathf.Log10(linear) * 20f : -80f;
     }
 }
