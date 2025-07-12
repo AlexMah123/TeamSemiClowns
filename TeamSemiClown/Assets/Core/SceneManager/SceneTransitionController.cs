@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +10,6 @@ public enum SceneType
 {
     Exit = -1,
     Menu,
-    CutScene,
     Game,
 }
 
@@ -22,9 +20,9 @@ public enum Transition
     CircleWipe,
 }
 
-public class SceneTransitionManager : MonoBehaviour
+public class SceneTransitionController : MonoBehaviour
 {
-    public static SceneTransitionManager Instance;
+    public static SceneTransitionController Instance;
 
     [Header("Transition Configs")]
     public GameObject transitionsContainer;
