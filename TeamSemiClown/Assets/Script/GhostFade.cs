@@ -2,16 +2,19 @@ using System.Collections;
 using UnityEngine;
 
 public class GhostFade : MonoBehaviour
-{
+{   //Sprite
     public SpriteRenderer ghostSprite;
     public float fadeInDuration = 2f;
     public float checkInterval = 0.1f;
     public float movementThreshold = 0.01f;
     public float visiblitlity = 0.1f;
 
+    //Extra
     private Vector3 lastPosition;
     private Coroutine fadeCoroutine;
     private bool isVisible = false;
+    public Collider ghostCollider;
+    public bool forceVisible = false;
 
     void Start()
     {
@@ -26,7 +29,7 @@ public class GhostFade : MonoBehaviour
         {
             float distanceMoved = Vector3.Distance(transform.position, lastPosition);
 
-            if (distanceMoved < movementThreshold)
+            if (distanceMoved < movementThreshold && !forceVisible)
             {
                 if (fadeCoroutine != null)
                 {
@@ -58,7 +61,8 @@ public class GhostFade : MonoBehaviour
         while (elapsed < fadeInDuration)
         {
             float alpha = Mathf.Lerp(0f, 1f, elapsed / fadeInDuration);
-            ghostSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            SetAlpha(alpha);
+            //ghostSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -66,11 +70,21 @@ public class GhostFade : MonoBehaviour
         ghostSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
         isVisible = true;
         fadeCoroutine = null;
+        
     }
 
     void SetAlpha(float alpha)
     {
+        if (forceVisible)
+        {
+            alpha = 1f;
+        }
         Color color = ghostSprite.color;
         ghostSprite.color = new Color(color.r, color.g, color.b, alpha);
+
+        if (ghostCollider != null)
+        {
+            ghostCollider.enabled = alpha > visiblitlity;
+        }
     }
 }
