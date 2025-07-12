@@ -9,6 +9,14 @@ public class GhostFade : MonoBehaviour
     public float movementThreshold = 0.01f;
     public float visiblitlity = 0.1f;
 
+    //Bobbing
+    private Transform parentTransform;
+    private Vector3 originalLocalPosition;
+    private bool isMoving = false;
+    public float bobAmount = 0.05f;
+    public float bobSpeed = 1f;
+    public float forwardDrift = 0.03f;
+
     //Extra
     private Vector3 lastPosition;
     private Coroutine fadeCoroutine;
@@ -18,7 +26,9 @@ public class GhostFade : MonoBehaviour
 
     void Start()
     {
-        lastPosition = transform.position;
+        parentTransform = transform.parent;
+        lastPosition = parentTransform.position;
+        originalLocalPosition = transform.localPosition;
         SetAlpha(visiblitlity); // Start invisible
         StartCoroutine(CheckMovement());
     }
@@ -27,28 +37,37 @@ public class GhostFade : MonoBehaviour
     {
         while (true)
         {
-            float distanceMoved = Vector3.Distance(transform.position, lastPosition);
+            float distanceMoved = Vector3.Distance(parentTransform.position, lastPosition);
 
-            if (distanceMoved < movementThreshold && !forceVisible)
+            if (distanceMoved < movementThreshold)
             {
-                if (fadeCoroutine != null)
+                isMoving = false;
+                if (!forceVisible)
                 {
-                    StopCoroutine(fadeCoroutine);
-                    fadeCoroutine = null;
+                    if (fadeCoroutine != null)
+                    {
+                        StopCoroutine(fadeCoroutine);
+                        fadeCoroutine = null;
+                    }
+
+                    SetAlpha(visiblitlity); // Instantly invisible
+                    isVisible = false;
                 }
 
-                SetAlpha(visiblitlity); // Instantly invisible
-                isVisible = false;
+            
             }
             else
             {
+                isMoving = true;
+
                 if (!isVisible && fadeCoroutine == null)
                 {
                     fadeCoroutine = StartCoroutine(FadeIn());
                 }
+                
             }
 
-            lastPosition = transform.position;
+            lastPosition = parentTransform.position;
             yield return new WaitForSeconds(checkInterval);
         }
     }
@@ -70,7 +89,7 @@ public class GhostFade : MonoBehaviour
         ghostSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
         isVisible = true;
         fadeCoroutine = null;
-        
+
     }
 
     void SetAlpha(float alpha)
@@ -85,6 +104,20 @@ public class GhostFade : MonoBehaviour
         if (ghostCollider != null)
         {
             ghostCollider.enabled = alpha > visiblitlity;
+        }
+    }
+    
+    void Update()
+    {
+        if (isMoving && ghostSprite.color.a > visiblitlity)
+        {
+            float bobOffset = Mathf.Sin(Time.time * bobSpeed) * bobAmount;
+            Vector3 driftOffset = transform.forward * forwardDrift;
+            transform.localPosition = originalLocalPosition + new Vector3(0f, bobOffset, 0f) + driftOffset;
+        }
+        else
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, originalLocalPosition, 5f * Time.deltaTime);
         }
     }
 }

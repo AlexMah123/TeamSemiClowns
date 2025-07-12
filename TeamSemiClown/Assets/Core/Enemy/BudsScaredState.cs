@@ -13,12 +13,6 @@ public class BudsScaredState : BudsBaseState
     {
         
     }
-
-    public override void OnTriggerEnter(Collider colliderInfo, BudsStateMachine buds)
-    {
-        
-    }
-
     public override void UpdateState(BudsStateMachine buds)
     {
         

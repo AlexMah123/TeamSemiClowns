@@ -20,17 +20,9 @@ public class BudsWalkState : BudsBaseState
             buds.StopCoroutine(turnCheck);
         }
     }
-
-    public override void OnTriggerEnter(Collider colliderInfo, BudsStateMachine buds)
-    {
-
-    }
-
     public override void UpdateState(BudsStateMachine buds) //Add walking stuff here
     {
-        buds.transform.position = buds.transform.position + Vector3.forward * buds.speed;
-        //Scared Check
-
+        //buds.transform.position = buds.transform.position + Vector3.forward * buds.speed;
     }
 
     IEnumerator TurnTriggerLoop(BudsStateMachine buds)
@@ -42,7 +34,6 @@ public class BudsWalkState : BudsBaseState
             yield return new WaitForSeconds(m_TurnCheck);
             Debug.Log(plusChance);
             plusChance++;
-    
         }
         
         buds.SwitchState(buds.turnAroundState);

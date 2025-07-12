@@ -13,12 +13,7 @@ public class BudsIdleState : BudsBaseState
     {
     }
 
-    public override void OnTriggerEnter(Collider colliderInfo, BudsStateMachine buds)
-    {
-
-    }
-
-    public override void UpdateState(BudsStateMachine buds) //Check for scared in case of AI bugged
+    public override void UpdateState(BudsStateMachine buds)
     {
         if (m_IdleTime > 0)
         {
