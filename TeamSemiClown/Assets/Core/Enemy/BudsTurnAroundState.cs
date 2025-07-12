@@ -23,7 +23,7 @@ public class BudsTurnAroundState : BudsBaseState
     {
         buds.transform.DORotate(new(0, 180, 0), 0.2f).OnComplete(()=> 
         { 
-            if (UnityEngine.Physics.Raycast(buds.transform.position, buds.transform.forward, out RaycastHit hit))
+            if (UnityEngine.Physics.Raycast(buds.transform.position, (buds.transform.position + buds.GetPlayerTransform().position).normalized, out RaycastHit hit))
             {
                 buds.SwitchState(buds.discoverState);
                 return;

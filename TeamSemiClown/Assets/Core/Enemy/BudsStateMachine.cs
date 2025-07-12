@@ -42,4 +42,7 @@ public class BudsStateMachine : MonoBehaviour
         currentState = state;
         currentState.EnterState(this);
     }
+
+    public Transform GetPlayerTransform()
+        { return playerTransform; }
 }
