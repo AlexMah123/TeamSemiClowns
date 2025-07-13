@@ -68,8 +68,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: e7e92d2e4d6676a4a92ed9f1be24f978, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -138,6 +138,7 @@ MonoBehaviour:
   hoverScale: 1.1
   clickScale: 1.2
   tweenDuration: 0.2
+  audioToPlay: {fileID: 8300000, guid: eb4c2009d5e37fc46a19dae442bad0f8, type: 3}
 --- !u!1 &3361977699436398353
 GameObject:
   m_ObjectHideFlags: 0
