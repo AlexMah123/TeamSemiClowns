@@ -1,13 +1,14 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEngine;
-using static DG.Tweening.DOTweenModuleUtils;
 
 public class BudsTurnAroundState : BudsBaseState
 {
     float m_StareTime;
+    bool isTurned = false;
     public override void EnterState(BudsStateMachine buds)
     {
-        TurnAround(buds, Random.Range(0, 100) >= 60);
+        buds.StartCoroutine(PlayerDetectOnTurn(buds, Random.Range(0, 100) >= 60));
         m_StareTime = 2.0f;
     }
 
@@ -17,14 +18,20 @@ public class BudsTurnAroundState : BudsBaseState
 
     public override void UpdateState(BudsStateMachine buds)
     {
-
+        if (isTurned)
+        {
+            if (Physics.Raycast(buds.transform.position, (buds.GetPlayerTransform().position - buds.transform.position).normalized, out RaycastHit hit))
+            {
+                buds.SwitchState(buds.discoverState);
+            }
+        }
     }
-    public void TurnAround(BudsStateMachine buds, bool secondTime = false)
+    public void TurnAround(BudsStateMachine buds, bool secondTime = false) //Is backup, redundant for now
     {
         buds.transform.DORotate(new(0, 180, 0), 0.2f).OnComplete(()=> 
         {
             Debug.DrawRay(buds.transform.position, (buds.GetPlayerTransform().position - buds.transform.position).normalized, Color.red, 1000f);
-            if (UnityEngine.Physics.Raycast(buds.transform.position, (buds.GetPlayerTransform().position - buds.transform.position).normalized, out RaycastHit hit))
+            if (Physics.Raycast(buds.transform.position, (buds.GetPlayerTransform().position - buds.transform.position).normalized, out RaycastHit hit))
             {
                 buds.SwitchState(buds.discoverState);
                 return;
@@ -42,5 +49,19 @@ public class BudsTurnAroundState : BudsBaseState
 
         
         // Play Animation 
+    }
+
+    IEnumerator PlayerDetectOnTurn(BudsStateMachine buds, bool secondTime = false)
+    {
+        Debug.Log(secondTime);
+        yield return new WaitForSeconds(0.3f);
+
+        isTurned = true;
+        yield return new WaitForSeconds(0.3f + m_StareTime);
+        isTurned = false;
+        if (!buds.doubleTake || secondTime)
+            buds.SwitchState(buds.walkState);
+        else
+            buds.StartCoroutine(PlayerDetectOnTurn(buds, true));
     }
 }
