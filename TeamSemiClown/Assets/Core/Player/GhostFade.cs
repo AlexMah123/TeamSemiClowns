@@ -2,14 +2,17 @@ using System.Collections;
 using UnityEngine;
 
 public class GhostFade : MonoBehaviour
-{   //Sprite
+{
+    // Sprite
     public SpriteRenderer ghostSprite;
     public float fadeInDuration = 2f;
     public float checkInterval = 0.1f;
     public float movementThreshold = 0.01f;
     public float visiblitlity = 0.1f;
+    public float yellow = 0.65f;
+    private Color oriColor;
 
-    //Bobbing
+    // Bobbing
     private Transform parentTransform;
     private Vector3 originalLocalPosition;
     private bool isMoving = false;
@@ -17,19 +20,23 @@ public class GhostFade : MonoBehaviour
     public float bobSpeed = 1f;
     public float forwardDrift = 0.03f;
 
-    //Extra
+    // Extra
     private Vector3 lastPosition;
     private Coroutine fadeCoroutine;
     private bool isVisible = false;
     public Collider ghostCollider;
     public bool forceVisible = false;
+    private bool previousForceVisible;
 
     void Start()
     {
         parentTransform = transform.parent;
         lastPosition = parentTransform.position;
         originalLocalPosition = transform.localPosition;
-        SetAlpha(visiblitlity); // Start invisible
+        oriColor = ghostSprite.color;
+
+        previousForceVisible = forceVisible;
+        ApplyGhostColor(visiblitlity); // Start faded
         StartCoroutine(CheckMovement());
     }
 
@@ -42,6 +49,7 @@ public class GhostFade : MonoBehaviour
             if (distanceMoved < movementThreshold)
             {
                 isMoving = false;
+
                 if (!forceVisible)
                 {
                     if (fadeCoroutine != null)
@@ -50,11 +58,9 @@ public class GhostFade : MonoBehaviour
                         fadeCoroutine = null;
                     }
 
-                    SetAlpha(visiblitlity); // Instantly invisible
+                    ApplyGhostColor(visiblitlity);
                     isVisible = false;
                 }
-
-            
             }
             else
             {
@@ -64,7 +70,6 @@ public class GhostFade : MonoBehaviour
                 {
                     fadeCoroutine = StartCoroutine(FadeIn());
                 }
-                
             }
 
             lastPosition = parentTransform.position;
@@ -74,41 +79,45 @@ public class GhostFade : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        float elapsed = visiblitlity;
-        Color originalColor = ghostSprite.color;
+        float elapsed = 0f;
 
         while (elapsed < fadeInDuration)
         {
-            float alpha = Mathf.Lerp(0f, 1f, elapsed / fadeInDuration);
-            SetAlpha(alpha);
-            //ghostSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            float alpha = Mathf.Lerp(visiblitlity, 1f, elapsed / fadeInDuration);
+            ApplyGhostColor(alpha);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        ghostSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
+        ApplyGhostColor(1f);
         isVisible = true;
         fadeCoroutine = null;
-
     }
 
-    void SetAlpha(float alpha)
+    void ApplyGhostColor(float alpha)
     {
+        Color targetColor;
+
         if (forceVisible)
         {
-            alpha = 1f;
+            targetColor = new Color(oriColor.r, oriColor.g, yellow, alpha);
         }
-        Color color = ghostSprite.color;
-        ghostSprite.color = new Color(color.r, color.g, color.b, alpha);
+        else
+        {
+            targetColor = new Color(oriColor.r, oriColor.g, oriColor.b, alpha);
+        }
+
+        ghostSprite.color = targetColor;
 
         if (ghostCollider != null)
         {
             ghostCollider.enabled = alpha > visiblitlity;
         }
     }
-    
+
     void Update()
     {
+        // Bobbing effect
         if (isMoving && ghostSprite.color.a > visiblitlity)
         {
             float bobOffset = Mathf.Sin(Time.time * bobSpeed) * bobAmount;
@@ -118,6 +127,13 @@ public class GhostFade : MonoBehaviour
         else
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, originalLocalPosition, 5f * Time.deltaTime);
+        }
+
+        // Detect forceVisible change and update color immediately
+        if (forceVisible != previousForceVisible)
+        {
+            ApplyGhostColor(ghostSprite.color.a);
+            previousForceVisible = forceVisible;
         }
     }
 }
