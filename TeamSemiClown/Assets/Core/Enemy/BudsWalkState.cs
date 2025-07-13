@@ -18,6 +18,7 @@ public class BudsWalkState : BudsBaseState
         if (turnCheck != null)
         {
             buds.StopCoroutine(turnCheck);
+            turnCheck = null;
         }
     }
     public override void UpdateState(BudsStateMachine buds) //Add walking stuff here

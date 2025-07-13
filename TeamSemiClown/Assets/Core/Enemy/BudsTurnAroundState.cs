@@ -6,14 +6,20 @@ public class BudsTurnAroundState : BudsBaseState
 {
     float m_StareTime;
     bool isTurned = false;
+    Coroutine discoverCheck = null;
     public override void EnterState(BudsStateMachine buds)
     {
-        buds.StartCoroutine(PlayerDetectOnTurn(buds, Random.Range(0, 100) >= 60));
+        discoverCheck = buds.StartCoroutine(PlayerDetectOnTurn(buds, Random.Range(0, 100) >= 60));
         m_StareTime = 2.0f;
     }
 
     public override void ExitState(BudsStateMachine buds)
     {
+        if (discoverCheck != null)
+        {
+            buds.StopCoroutine(discoverCheck);
+            discoverCheck = null;
+        }
     }
 
     public override void UpdateState(BudsStateMachine buds)
@@ -22,6 +28,7 @@ public class BudsTurnAroundState : BudsBaseState
         {
             if (Physics.Raycast(buds.transform.position, (buds.GetPlayerTransform().position - buds.transform.position).normalized, out RaycastHit hit))
             {
+                Debug.Log("ahhh");
                 buds.SwitchState(buds.discoverState);
             }
         }
@@ -65,6 +72,6 @@ public class BudsTurnAroundState : BudsBaseState
         if (!buds.doubleTake || secondTime)
             buds.SwitchState(buds.walkState);
         else
-            buds.StartCoroutine(PlayerDetectOnTurn(buds, true));
+            discoverCheck =  buds.StartCoroutine(PlayerDetectOnTurn(buds, true));
     }
 }
