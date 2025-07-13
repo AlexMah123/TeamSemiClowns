@@ -6,7 +6,7 @@ public class BudsDiscoverState : BudsBaseState
     {
         buds.animator.SetTrigger("Discovered");
         TouchHandler.canMove = false;
-        buds.loseCustom.SetActive(true);
+        buds.loseScreen.SetActive(true);
         //SceneTransitionController.Instance.LoadScene()
         //play animation
         //end game

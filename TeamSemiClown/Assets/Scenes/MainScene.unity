@@ -1804,7 +1804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3800304505097327437, guid: 603f09d1d1ba65d48a41916a66f4fd45, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3800304505097327437, guid: 603f09d1d1ba65d48a41916a66f4fd45, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1844,7 +1844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8846991985439678136, guid: 603f09d1d1ba65d48a41916a66f4fd45, type: 3}
       propertyPath: speed
-      value: 2
+      value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 8846991985439678136, guid: 603f09d1d1ba65d48a41916a66f4fd45, type: 3}
       propertyPath: winScreen
@@ -1864,7 +1864,7 @@ PrefabInstance:
       objectReference: {fileID: 1835737943}
     - target: {fileID: 8846991985439678136, guid: 603f09d1d1ba65d48a41916a66f4fd45, type: 3}
       propertyPath: turnChance
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

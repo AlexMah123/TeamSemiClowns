@@ -4,7 +4,7 @@ using UnityEngine.AdaptivePerformance.VisualScripting;
 
 public class BudsWalkState : BudsBaseState
 {
-    float m_TurnCheck = 3f;
+    float m_TurnCheck = 1.5f;
     Coroutine turnCheck = null;
     int plusChance;
     public override void EnterState(BudsStateMachine buds)
@@ -25,9 +25,9 @@ public class BudsWalkState : BudsBaseState
     {
         buds.transform.position = buds.transform.position + buds.speed * Time.deltaTime * Vector3.forward;
 
-        if (Vector3.Distance(buds.transform.position, buds.GetPlayerTransform().position) > 50)
+        if (Vector3.Distance(buds.transform.position, buds.GetPlayerTransform().position) > 30)
         {
-            buds.loseScreen.SetActive(true);
+            buds.loseCustom.SetActive(true);
             //Transititon to default lose level
         }
     }

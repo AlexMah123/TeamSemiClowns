@@ -1560,7 +1560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 298073269645674743, guid: 483ca043b2c6e3747b3de68ec51f9efc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 298073269645674743, guid: 483ca043b2c6e3747b3de68ec51f9efc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1618,6 +1618,10 @@ PrefabInstance:
       propertyPath: loseScreen
       value: 
       objectReference: {fileID: 2006071848}
+    - target: {fileID: 5016806529464007681, guid: 483ca043b2c6e3747b3de68ec51f9efc, type: 3}
+      propertyPath: turnChance
+      value: 35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

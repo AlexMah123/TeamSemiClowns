@@ -1545,7 +1545,7 @@ PrefabInstance:
       objectReference: {fileID: 464155421}
     - target: {fileID: 2622024444461718400, guid: 809282fdcf59f3842971311fc7a5921b, type: 3}
       propertyPath: doubleTake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2622024444461718400, guid: 809282fdcf59f3842971311fc7a5921b, type: 3}
       propertyPath: loseCustom
@@ -1585,7 +1585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6558179010530052418, guid: 809282fdcf59f3842971311fc7a5921b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6558179010530052418, guid: 809282fdcf59f3842971311fc7a5921b, type: 3}
       propertyPath: m_LocalRotation.w
