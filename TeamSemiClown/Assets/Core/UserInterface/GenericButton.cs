@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GenericButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -12,6 +13,7 @@ public class GenericButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     [Header("Additional OnClick Settings")]
     [SerializeField] private AudioClip audioToPlay;
+    [SerializeField] private bool isPauseButton = false;
 
     private Vector3 originalScale;
     private Tween currentTween;
@@ -46,6 +48,15 @@ public class GenericButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         clickSequence.Append(transform.DOScale(originalScale * clickScale, tweenDuration / 2).SetEase(Ease.OutQuad));
         clickSequence.Append(transform.DOScale(originalScale * hoverScale, tweenDuration / 2).SetEase(Ease.InQuad));
         clickSequence.Play();
+
+        bool isInGameLevel = SceneManager.GetActiveScene().buildIndex == (int)SceneType.Game1 ||
+                             SceneManager.GetActiveScene().buildIndex == (int)SceneType.Game2 ||
+                             SceneManager.GetActiveScene().buildIndex == (int)SceneType.Game3;
+
+        if (isInGameLevel && isPauseButton)
+        {
+            Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+        }
     }
 
     private void ScaleTo(float scaleFactor)

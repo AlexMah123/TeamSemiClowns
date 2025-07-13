@@ -10,7 +10,10 @@ public enum SceneType
 {
     Exit = -1,
     Menu,
-    Game,
+    Tutorial,
+    Game1,
+    Game2,
+    Game3,
 }
 
 [Serializable]

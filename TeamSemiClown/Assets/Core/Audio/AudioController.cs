@@ -14,9 +14,13 @@ public class AudioController : MonoBehaviour
     [SerializeField] private Slider sfxVolumeSlider;
 
     [Header("Pause Configs")]
-    [SerializeField] private GameObject pauseButton;
-    [SerializeField] private bool EnableInGameLevel = true;
-
+    [SerializeField] private GameObject buttonPanel;
+    [SerializeField] private bool enableInGameLevel = true;
+    
+    [Header("Additional OnSceneLoad Configs")]
+    [SerializeField] private GameObject menuButton;
+    [SerializeField] private GameObject settingsPanel;
+    
     private const string MasterVolumeKey = "MasterVolume";
     private const string MusicVolumeKey = "MusicVolume";
     private const string SFXVolumeKey = "SFXVolume";
@@ -77,13 +81,20 @@ public class AudioController : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (EnableInGameLevel && scene.buildIndex == (int)SceneType.Game)
+        bool isInGameLevel = scene.buildIndex == (int)SceneType.Game1 ||
+                             scene.buildIndex == (int)SceneType.Game2 ||
+                             scene.buildIndex == (int)SceneType.Game3;
+        
+        if (enableInGameLevel && isInGameLevel)
         {
-            pauseButton.SetActive(true);
+            buttonPanel.SetActive(true);
+            menuButton.SetActive(true);
         }
         else
         {
-            pauseButton.SetActive(false);
+            buttonPanel.SetActive(false);
+            menuButton.SetActive(false);
+            settingsPanel.SetActive(false);
         }
     }
 }

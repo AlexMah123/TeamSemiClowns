@@ -10,6 +10,7 @@ public class SceneTransitionHandler : MonoBehaviour
 
     public void LoadScene()
     {
+        Time.timeScale = 1;
         if (coroutine != null) return;
 
         //AudioManager.PlaySFX(AEnum.whoosh);
