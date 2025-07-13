@@ -13,6 +13,7 @@ public class BudsStateMachine : MonoBehaviour
     public float speed = 1; 
     public int turnChance = 30; // x in 100 chance 
     public bool doubleTake = false; // bud will fake a turn around 
+    public Animator animator;
 
     [SerializeField] private Transform playerTransform = null;
     [SerializeField] private float scareDistance = 3;

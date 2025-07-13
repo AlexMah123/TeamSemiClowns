@@ -22,7 +22,7 @@ public class BudsWalkState : BudsBaseState
     }
     public override void UpdateState(BudsStateMachine buds) //Add walking stuff here
     {
-        buds.transform.position = buds.transform.position + Vector3.forward * buds.speed * Time.deltaTime;
+        buds.transform.position = buds.transform.position + buds.speed * Time.deltaTime * Vector3.forward;
     }
 
     IEnumerator TurnTriggerLoop(BudsStateMachine buds)

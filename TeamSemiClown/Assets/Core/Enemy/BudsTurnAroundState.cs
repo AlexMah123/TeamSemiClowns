@@ -53,11 +53,14 @@ public class BudsTurnAroundState : BudsBaseState
 
     IEnumerator PlayerDetectOnTurn(BudsStateMachine buds, bool secondTime = false)
     {
-        Debug.Log(secondTime);
-        yield return new WaitForSeconds(0.3f);
 
+        buds.animator.SetTrigger("Turn");
+        yield return new WaitForSeconds(0.3f);
+            
         isTurned = true;
-        yield return new WaitForSeconds(0.3f + m_StareTime);
+        yield return new WaitForSeconds(m_StareTime);
+        buds.animator.SetTrigger("TurnBack");
+        yield return new WaitForSeconds(0.3f);
         isTurned = false;
         if (!buds.doubleTake || secondTime)
             buds.SwitchState(buds.walkState);
