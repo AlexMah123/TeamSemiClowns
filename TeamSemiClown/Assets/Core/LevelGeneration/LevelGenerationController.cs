@@ -20,7 +20,7 @@ public class LevelGenerationController : MonoBehaviour
 
     private void OnDisable()
     {
-        UnbindLevelPresetListeners();
+        //UnbindLevelPresetListeners();
     }
 
     private void Awake()
@@ -53,7 +53,11 @@ public class LevelGenerationController : MonoBehaviour
 
     private void Start()
     {
-        SFXController.Instance.PlayBGM();
+        if(SFXController.Instance != null)
+        {
+            SFXController.Instance.PlayBGM();
+
+        }
     }
 
     void InitializePool()
