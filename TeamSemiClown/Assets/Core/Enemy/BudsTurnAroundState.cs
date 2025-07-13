@@ -26,10 +26,14 @@ public class BudsTurnAroundState : BudsBaseState
     {
         if (isTurned)
         {
-            if (Physics.Raycast(buds.transform.position, (buds.GetPlayerTransform().position - buds.transform.position).normalized, out RaycastHit hit))
+            RaycastHit[] hits = Physics.RaycastAll(buds.transform.position, (buds.GetPlayerTransform().position - buds.transform.position).normalized);
+            for (int i = 0; i < hits.Length; i++)
             {
-                Debug.Log("ahhh");
-                buds.SwitchState(buds.discoverState);
+                if (hits[i].collider.CompareTag("Player"))
+                {
+                    buds.SwitchState(buds.discoverState);
+                    continue;
+                }
             }
         }
     }
@@ -62,7 +66,7 @@ public class BudsTurnAroundState : BudsBaseState
     {
 
         buds.animator.SetTrigger("Turn");
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
             
         isTurned = true;
         yield return new WaitForSeconds(m_StareTime);
