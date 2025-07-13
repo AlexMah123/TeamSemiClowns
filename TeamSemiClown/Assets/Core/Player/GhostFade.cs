@@ -27,7 +27,6 @@ public class GhostFade : MonoBehaviour
     public Collider ghostCollider;
     public bool forceVisible = false;
     private bool previousForceVisible;
-
     void Start()
     {
         parentTransform = transform.parent;
@@ -117,23 +116,23 @@ public class GhostFade : MonoBehaviour
 
     void Update()
     {
-        // Bobbing effect
-        if (isMoving && ghostSprite.color.a > visiblitlity)
-        {
-            float bobOffset = Mathf.Sin(Time.time * bobSpeed) * bobAmount;
-            Vector3 driftOffset = transform.forward * forwardDrift;
-            transform.localPosition = originalLocalPosition + new Vector3(0f, bobOffset, 0f) + driftOffset;
-        }
-        else
-        {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, originalLocalPosition, 5f * Time.deltaTime);
-        }
+            // Bobbing effect
+            if (isMoving && ghostSprite.color.a > visiblitlity)
+            {
+                float bobOffset = Mathf.Sin(Time.time * bobSpeed) * bobAmount;
+                Vector3 driftOffset = transform.forward * forwardDrift;
+                transform.localPosition = originalLocalPosition + new Vector3(0f, bobOffset, 0f) + driftOffset;
+            }
+            else
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, originalLocalPosition, 5f * Time.deltaTime);
+            }
 
-        // Detect forceVisible change and update color immediately
-        if (forceVisible != previousForceVisible)
-        {
-            ApplyGhostColor(ghostSprite.color.a);
-            previousForceVisible = forceVisible;
+            // Detect forceVisible change and update color immediately
+            if (forceVisible != previousForceVisible)
+            {
+                ApplyGhostColor(ghostSprite.color.a);
+                previousForceVisible = forceVisible;
+            }
         }
-    }
 }

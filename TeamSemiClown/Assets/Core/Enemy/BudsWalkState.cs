@@ -24,6 +24,12 @@ public class BudsWalkState : BudsBaseState
     public override void UpdateState(BudsStateMachine buds) //Add walking stuff here
     {
         buds.transform.position = buds.transform.position + buds.speed * Time.deltaTime * Vector3.forward;
+
+        if (Vector3.Distance(buds.transform.position, buds.GetPlayerTransform().position) > 50)
+        {
+            buds.loseScreen.SetActive(true);
+            //Transititon to default lose level
+        }
     }
 
     IEnumerator TurnTriggerLoop(BudsStateMachine buds)
