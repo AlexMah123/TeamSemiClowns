@@ -1268,7 +1268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f70af3df867a43a197e3a47de9358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToTransition: 4
+  sceneToTransition: 0
   transitionType: 0
 --- !u!1001 &1178241820
 PrefabInstance:
@@ -1600,7 +1600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f70af3df867a43a197e3a47de9358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToTransition: 4
+  sceneToTransition: 0
   transitionType: 0
 --- !u!1 &1442804147
 GameObject:

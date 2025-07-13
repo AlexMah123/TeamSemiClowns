@@ -15,11 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/TappyLevel.unity
-    guid: 8e84e6532201a1a4c996baa5aeb4e3a1
-  - enabled: 1
     path: Assets/Scenes/OguLevel.unity
     guid: 8394c4e83fd34914a822e359de15f3a7
+  - enabled: 1
+    path: Assets/Scenes/TappyLevel.unity
+    guid: 8e84e6532201a1a4c996baa5aeb4e3a1
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 752e1a0deb483d74b8995f7ba18b2077, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 2c7318e3af48c034fb9351b4cfbfa935, type: 2}
