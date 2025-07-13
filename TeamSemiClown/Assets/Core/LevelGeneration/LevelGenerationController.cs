@@ -51,15 +51,6 @@ public class LevelGenerationController : MonoBehaviour
 #endif
     }
 
-    private void Start()
-    {
-        if(SFXController.Instance != null)
-        {
-            SFXController.Instance.PlayBGM();
-
-        }
-    }
-
     void InitializePool()
     {
         foreach (LevelPresetType type in System.Enum.GetValues(typeof(LevelPresetType)))

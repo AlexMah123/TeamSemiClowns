@@ -51,8 +51,6 @@ public class SceneTransitionController : MonoBehaviour
     private void Start()
     {
         transitions = transitionsContainer.GetComponentsInChildren<SceneTransition>();
-
-        //AudioManager.PlayBGM(AEnum.echo_ambience);
     }
 
     public void LoadScene(SceneType scene, Transition transitionType)

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SFXController : MonoBehaviour
 {
@@ -9,10 +11,14 @@ public class SFXController : MonoBehaviour
     [Header("SFX Controller Settings")]
     [SerializeField] private AudioSource soundFXObject;
     [SerializeField] private AudioSource BGM_Source;
-
-
+    
     [Header("SFX Setup")]
     [SerializeField] private AudioClip GameBGM;
+    
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
     private void Awake()
     {
@@ -80,6 +86,11 @@ public class SFXController : MonoBehaviour
         {
             BGM_Source.Stop();
         }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StopBGM();
     }
 
 }
